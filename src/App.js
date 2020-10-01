@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-class App extends Component {
 
-  state = {
-    chipCount: 1000,
-    dealersCards: [],
-    playersCards: [],
-    randomizedDecks: [],
-    isHandComplete: false,
-    isPlayerBusted: false,
-    isDealerBusted: false
-  }
+const App = () => {
 
-  render() {
-    return (
-      <div className="app">
-        <header className="app-header">
-          
-        </header>
-      </div>
-    );
-  }
+  const [chipCount, setChipCount] = useState(1000)
+  const [dealersCards, setDealerCards] = useState([])
+  const [playersCards, setPlayersCards] = useState([])
+  const [randomizedDecks, setRandomizedDecks] = useState([])
+  const [isHandComplete, setIsHandComplete] = useState(false)
+  const [isPlayerBusted, setIsPlayerBusted] = useState(false)
+  const [isDealerBusted, setIsDealerBusted] = useState(false)
+
+  return (
+    <div className="app">
+      <header className="app-header">
+        Double Deck Blackjack
+      </header>
+    </div>
+  );
 }
+
 
 export default App;
