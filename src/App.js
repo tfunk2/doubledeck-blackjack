@@ -7,7 +7,10 @@ class App extends Component {
     chipCount: 1000,
     dealersCards: [],
     playersCards: [],
-    randomizedDecks: []
+    randomizedDecks: [],
+    isHandComplete: false,
+    isPlayerBusted: false,
+    isDealerBusted: false
   }
 
   render() {
