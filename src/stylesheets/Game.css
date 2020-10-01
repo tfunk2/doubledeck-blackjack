@@ -1,0 +1,9 @@
+.game-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dealers-cards-div {
+    margin: 0px 0px 50px 0px;
+}
