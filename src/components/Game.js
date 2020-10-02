@@ -57,14 +57,15 @@ import KingOfS from '../images/KS.png'
 export default function Game(props) {
 
     const handleBet = (bet) => {
-        if(props.chipCount >= bet) {
+        if(props.chipCount >= bet && !props.isHandComplete) {
             props.setBetAmount(props.betAmount + bet)
             props.setChipCount(props.chipCount - bet)
         }
     }
 
     const handScore = (who, hand) => {
-        let sortedHand = hand.sort()
+        let copyOfHand = [...hand]
+        let sortedHand = copyOfHand.sort()
         let tenRegex = /^[JQK]|^10/
         let numRegex = /^[2-9]/
         let aceRegex = /^A/
@@ -265,11 +266,11 @@ export default function Game(props) {
         <div className="game-div">
             <div className="dealers-cards-div">
                 <h1>{handScore("dealer", props.dealersCards)}</h1>
-                {props.dealersCards.join(" - ")}
+                {/* {props.dealersCards.join(" - ")} */}
                 {whichImages(props.dealersCards)}
             </div>
             <div className="players-cards-div">
-                {props.playersCards.join(" - ")}
+                {/* {props.playersCards.join(" - ")} */}
                 {whichImages(props.playersCards)}
                 <h1>{handScore("player", props.playersCards)}</h1>
             </div>

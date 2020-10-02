@@ -28,6 +28,7 @@ const App = () => {
   const [chipCount, setChipCount] = useState(1000)
   const [betAmount, setBetAmount] = useState(0)
   const [lockedBet, setLockedBet] = useState(0)
+  const [previousBet, setPreviousBet] = useState(0)
   const [dealersCards, setDealersCards] = useState([firstFourCards[0], firstFourCards[2]])
   const [dealerCount, setDealerCount] = useState(null)
   const [playersCards, setPlayersCards] = useState([firstFourCards[1], firstFourCards[3]])
@@ -49,15 +50,18 @@ const App = () => {
   }
 
   const startHand = () => {
-    shuffleDeck()
-    setIsHandComplete(false)
-    setWinner("")
-    setIsPlayerBusted(false)
-    setIsDealerBusted(false)
-    setIsDealersTurn(false)
-    setPlayerCount(0)
-    setDealerCount(null)
-    // setBetAmount(0)
+    if(isHandComplete && lockedBet > 0) {
+      shuffleDeck()
+      setIsHandComplete(false)
+      setWinner("")
+      setIsPlayerBusted(false)
+      setIsDealerBusted(false)
+      setIsDealersTurn(false)
+      setPlayerCount(0)
+      setDealerCount(null)
+      setLockedBet(0)
+      setIsBlackJack(false)
+    }
   }
 
   const resetBets = () => {
@@ -73,8 +77,8 @@ const App = () => {
   }
 
   const handleHit = () => {
-    if(playerCount < 21 && !isDealersTurn) {
-      let currentDeck = randomizedDecks
+    if(playerCount < 21 && !isDealersTurn && winner !== "dealer" && !isBlackjack) {
+      let currentDeck = [...randomizedDecks]
       let nextCard = currentDeck.splice(0, 1)[0]
       setPlayersCards([...playersCards, nextCard])
       setRandomizedDecks(currentDeck)
@@ -92,11 +96,19 @@ const App = () => {
   }
 
   const keepSameBet = () => {
-
-  }
-
-  const clearLockedBet = () => {
-
+    if(isHandComplete) {
+      shuffleDeck()
+      setIsHandComplete(false)
+      setWinner("")
+      setIsPlayerBusted(false)
+      setIsDealerBusted(false)
+      setIsDealersTurn(false)
+      setPlayerCount(0)
+      setDealerCount(null)
+      setLockedBet(previousBet)
+      setIsBlackJack(false)
+      setChipCount(chipCount - previousBet)
+    }
   }
 
   const handleDouble = () => {
@@ -158,7 +170,7 @@ useEffect(() => {
     setWinner("push")
     setIsHandComplete("true")
   } 
-}, [playersCards, dealersCards])
+})
 
 // Player's turn
 useEffect(() => {
@@ -206,6 +218,10 @@ useEffect(() => {
       setWinner("player")
       setIsHandComplete(true)
     }
+    if(dealerCount === playerCount && !isPlayerBusted) {
+      setWinner("push")
+      setIsHandComplete(true)
+    }
   }
 
   if(dealerCount < 17 && isDealersTurn) {
@@ -229,6 +245,9 @@ useEffect(() => {
   if(winner === "push") {
     setChipCount(chipCount + lockedBet)
     // setBetAmount(0)
+  }
+  if(winner === "push" || winner === "dealer" || winner === "player") {
+    setPreviousBet(lockedBet)
   }
 }, [winner])
 
@@ -279,10 +298,9 @@ useEffect(() => {
         winner ? 
           <div>
             <button onClick={keepSameBet}>Same Bet</button>
-            <button onClick={clearLockedBet}>Clear Locked Bet</button>
             <h1>
             {winner === "player" ? 
-              `Player profits ${lockedBet}` : 
+              `Player profits ${isBlackjack ? lockedBet * 1.5 : lockedBet}` : 
               winner === "dealer" ? 
               `Player loses ${lockedBet}` : 
               winner === "push" ? 
