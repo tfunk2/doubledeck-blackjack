@@ -63,40 +63,6 @@ export default function Game(props) {
         }
     }
 
-    const handScore = (who, hand) => {
-        let copyOfHand = [...hand]
-        let sortedHand = copyOfHand.sort()
-        let tenRegex = /^[JQK]|^10/
-        let numRegex = /^[2-9]/
-        let aceRegex = /^A/
-
-        let handCount = 0
-
-        for(let i = 0; i < sortedHand.length; i++) {
-            if(tenRegex.test(sortedHand[i])) {
-                handCount += 10
-            } else if (numRegex.test(sortedHand[i])) {
-                handCount += parseInt(sortedHand[i].match(numRegex)[0])
-            } else if (aceRegex.test(sortedHand[i])) {
-                if(handCount <= 10) {
-                    handCount += 11
-                } else if(handCount + 11 > 21) {
-                    handCount += 1
-                }
-            }
-        }
-
-        if(who === "dealer") {
-            props.setDealerCount(handCount)
-        }
-
-        if(who === "player") {
-            props.setPlayerCount(handCount)
-        }
-
-        return handCount
-    }
-
     const whichImages = (cards) => {
         return cards.map(card => {
             let findImage;
@@ -265,14 +231,12 @@ export default function Game(props) {
     return(
         <div className="game-div">
             <div className="dealers-cards-div">
-                <h1>{handScore("dealer", props.dealersCards)}</h1>
-                {/* {props.dealersCards.join(" - ")} */}
+                <h1>{props.dealerCount}</h1>
                 {whichImages(props.dealersCards)}
             </div>
             <div className="players-cards-div">
-                {/* {props.playersCards.join(" - ")} */}
                 {whichImages(props.playersCards)}
-                <h1>{handScore("player", props.playersCards)}</h1>
+                <h1>{props.playerCount}</h1>
             </div>
             <section className="gameplay-options">
                 <button onClick={props.handleHit}>Hit</button>

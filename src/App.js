@@ -76,6 +76,46 @@ const App = () => {
     }
   }
 
+  const handScore = (who, hand) => {
+    let copyOfHand = [...hand]
+    let sortedHand = copyOfHand.sort()
+    let tenRegex = /^[JQK]|^10/
+    let numRegex = /^[2-9]/
+    let aceRegex = /^A/
+    let acesLast = []
+    sortedHand.forEach(card => {
+      if(aceRegex.test(card)){
+          acesLast.push(card)
+      } else {
+          acesLast.unshift(card)
+      }
+  })
+
+    let handCount = 0
+
+    for(let i = 0; i < acesLast.length; i++) {
+        if(tenRegex.test(acesLast[i])) {
+            handCount += 10
+        } else if (numRegex.test(acesLast[i])) {
+            handCount += parseInt(acesLast[i].match(numRegex)[0])
+        } else if (aceRegex.test(acesLast[i])) {
+            if(handCount <= 10) {
+                handCount += 11
+            } else if(handCount + 11 > 21) {
+                handCount += 1
+            }
+        }
+    }
+
+    if(who === "dealer") {
+      setDealerCount(handCount)
+    }
+    if(who === "player") {
+      setPlayerCount(handCount)
+    }
+    return handCount
+  }
+
   const handleHit = () => {
     if(playerCount < 21 && !isDealersTurn && winner !== "dealer" && !isBlackjack) {
       let currentDeck = [...randomizedDecks]
@@ -144,6 +184,14 @@ const App = () => {
     setRandomizedDecks(currentDeck)
     setDealerCount(dealerCount + parseInt(nextCardValue))
   }
+
+  useEffect(() => {
+    handScore("player", playersCards)
+  }, [playersCards])
+
+  useEffect(() => {
+    handScore("dealer", dealersCards)
+  }, [dealersCards])
 
 // Check for blackjack in the beginning
 useEffect(() => {
