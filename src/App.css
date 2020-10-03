@@ -1,3 +1,9 @@
+body {
+    background-image: url('./images/leather-texture.jpg');
+    /* background-size: cover; */
+    overflow: hidden;
+}
+
 .app {
     display: flex;
     flex-direction: column;
@@ -6,4 +12,8 @@
 
 .app-header {
     text-align: center;
+}
+
+p {
+    color: aliceblue;
 }

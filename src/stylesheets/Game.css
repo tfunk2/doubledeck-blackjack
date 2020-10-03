@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    background-image: url('../images/green-felt.jpg');
+    width: 90%;
+    height: 70vh;
+    border-radius: 200px;
+    border: rgb(27, 27, 27) 10px solid;
 }
 
 .dealers-cards-div {
@@ -9,5 +15,12 @@
 }
 
 .card-img {
-    max-height: 200px;
+    /* max-height: 200px; */
+    max-height: 20vh;
+    width: auto;
+}
+
+h1 {
+    color: aliceblue;
+    text-align: center;
 }

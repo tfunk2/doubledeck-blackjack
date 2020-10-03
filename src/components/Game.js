@@ -1,5 +1,6 @@
 import React from 'react';
 import '../stylesheets/Game.css'
+import CardBack from '../images/card-back.png'
 import AceOfH from '../images/AH.png'
 import TwoOfH from '../images/2H.png'
 import ThreeOfH from '../images/3H.png'
@@ -57,13 +58,13 @@ import KingOfS from '../images/KS.png'
 export default function Game(props) {
 
     const handleBet = (bet) => {
-        if(props.chipCount >= bet && !props.isHandComplete) {
+        if(props.betAmount + bet <= props.chipCount && props.isHandComplete) {
             props.setBetAmount(props.betAmount + bet)
-            props.setChipCount(props.chipCount - bet)
+            // props.setChipCount(props.chipCount - bet)
         }
     }
 
-    const whichImages = (cards) => {
+    const whichImages = (who, cards) => {
         return cards.map(card => {
             let findImage;
             switch(card) {
@@ -224,6 +225,9 @@ export default function Game(props) {
                     findImage = KingOfS;
                     break;
             }
+            if(who === "dealer" && parseInt(cards.indexOf(card)) === 1) {
+                return <img className={"card-img"} alt={card} src={props.isDealersTurn ? findImage : CardBack}></img>
+            }
             return <img className="card-img" alt={card} src={findImage}></img>
         })
     }
@@ -231,12 +235,12 @@ export default function Game(props) {
     return(
         <div className="game-div">
             <div className="dealers-cards-div">
-                <h1>{props.dealerCount}</h1>
-                {whichImages(props.dealersCards)}
+                <h1>{props.isDealersTurn ? props.dealerCount : null}</h1>
+                {whichImages("dealer", props.dealersCards)}
             </div>
             <div className="players-cards-div">
-                {whichImages(props.playersCards)}
-                <h1>{props.playerCount}</h1>
+                {whichImages("player", props.playersCards)}
+                <h1>{props.playerCount > 0 ? props.playerCount : null}</h1>
             </div>
             <section className="gameplay-options">
                 <button onClick={props.handleHit}>Hit</button>
@@ -259,7 +263,7 @@ export default function Game(props) {
                 {props.chipCount >= 500000 ? <button onClick={() => handleBet(500000)} className="not-enough">500000</button> : null}
                 {props.chipCount >= 1000000 ? <button onClick={() => handleBet(1000000)} className="bet-button">1000000</button> : null}
             </section>
-            {props.lockedBet > 0 && !props.isHandComplete ? <h1>{props.lockedBet} wagered!</h1> : <></>}
+            {props.lockedBet > 0 && props.isHandComplete ? <h1>{props.lockedBet} wagered</h1> : <></>}
         </div>
     )
 }
