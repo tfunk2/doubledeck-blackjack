@@ -159,7 +159,9 @@ const App = () => {
 }
 
   const handleLockedBet = () => {
-    setLockedBet(betAmount)
+    if(betAmount > 0) {
+      setLockedBet(betAmount)
+    }
   }
 
   const keepSameBet = () => {

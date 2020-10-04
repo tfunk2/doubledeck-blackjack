@@ -282,7 +282,7 @@ export default function Game(props) {
                     !props.isHandComplete ? <>
                         <button className="betting-option" id={!props.isDealersTurn && props.playerCount < 21 ? "ready-to-start" : "not-ready"} onClick={props.handleHit}>Hit</button>
                         <button className="betting-option" id={!props.isDealersTurn && props.playerCount <= 21 && !props.didDouble ? "ready-to-start" : "not-ready"} onClick={props.handleStay}>Stay</button>
-                        <button className="betting-option" id={!props.isDealersTurn && props.playersCards.length === 2 && props.chipCount > props.previousBet ? "ready-to-start" : "not-ready"} onClick={props.handleDouble}>Double</button>
+                        <button className="betting-option" id={!props.isDealersTurn && props.playersCards.length === 2 && props.chipCount >= props.previousBet ? "ready-to-start" : "not-ready"} onClick={props.handleDouble}>Double</button>
                         {/* <button onClick={props.handleSplit}>Split</button> */}
                     </> : <></>
                 }
