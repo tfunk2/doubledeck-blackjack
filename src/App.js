@@ -25,21 +25,22 @@ const App = () => {
   const shuffledDoubleDeck = shuffle(twoDecks)
   const firstFourCards = shuffledDoubleDeck.splice(0, 4)
 
+  const [randomizedDecks, setRandomizedDecks] = useState([])
   const [chipCount, setChipCount] = useState(1000)
   const [betAmount, setBetAmount] = useState(0)
   const [lockedBet, setLockedBet] = useState(0)
   const [previousBet, setPreviousBet] = useState(0)
   const [dealersCards, setDealersCards] = useState([])
-  const [dealerCount, setDealerCount] = useState(null)
+  const [dealerCount, setDealerCount] = useState(0)
   const [playersCards, setPlayersCards] = useState([])
   const [playerCount, setPlayerCount] = useState(0)
-  const [randomizedDecks, setRandomizedDecks] = useState([])
-  const [isHandComplete, setIsHandComplete] = useState(true)
-  const [isPlayerBusted, setIsPlayerBusted] = useState(false)
-  const [isDealerBusted, setIsDealerBusted] = useState(false)
-  const [isDealersTurn, setIsDealersTurn] = useState(false)
-  const [winner, setWinner] = useState("")
   const [isBlackjack, setIsBlackJack] = useState(false)
+  const [isPlayerBusted, setIsPlayerBusted] = useState(false)
+  const [didDouble, setDidDouble] = useState(false)
+  const [isDealersTurn, setIsDealersTurn] = useState(false)
+  const [isDealerBusted, setIsDealerBusted] = useState(false)
+  const [isHandComplete, setIsHandComplete] = useState(true)
+  const [winner, setWinner] = useState("")
 
   const shuffleDeck = () => {
     const newShuffle = shuffle(twoDecks)
@@ -63,6 +64,7 @@ const App = () => {
       setPreviousBet(lockedBet)
       setChipCount(chipCount - lockedBet)
       setLockedBet(0)
+      setDidDouble(false)
     }
   }
 
@@ -73,7 +75,6 @@ const App = () => {
   }, [previousBet])
 
   const resetBets = () => {
-    setChipCount(chipCount + betAmount)
     setBetAmount(0)
   }
 
@@ -126,10 +127,12 @@ const App = () => {
 
   const handleHit = () => {
     if(playerCount < 21 && !isDealersTurn && winner !== "dealer" && !isBlackjack) {
-      let currentDeck = [...randomizedDecks]
-      let nextCard = currentDeck.splice(0, 1)[0]
-      setPlayersCards([...playersCards, nextCard])
-      setRandomizedDecks(currentDeck)
+      setTimeout(() => {
+        let currentDeck = [...randomizedDecks]
+        let nextCard = currentDeck.splice(0, 1)[0]
+        setPlayersCards([...playersCards, nextCard])
+        setRandomizedDecks(currentDeck)
+      }, 300);
     }
   }
 
@@ -139,12 +142,18 @@ const App = () => {
     }
   }
 
+  const handleBet = (bet) => {
+    if(betAmount + bet <= chipCount && isHandComplete) {
+        setBetAmount(betAmount + bet)
+    }
+}
+
   const handleLockedBet = () => {
     setLockedBet(betAmount)
   }
 
   const keepSameBet = () => {
-    if(isHandComplete) {
+    if(isHandComplete && chipCount >= previousBet) {
       shuffleDeck()
       setIsHandComplete(false)
       setWinner("")
@@ -156,16 +165,24 @@ const App = () => {
       setLockedBet(0)
       setIsBlackJack(false)
       setChipCount(chipCount - previousBet)
+      setDidDouble(false)
     }
   }
 
   const handleDouble = () => {
-
+    if(!isDealersTurn && playersCards.length === 2 && chipCount >= previousBet) {
+      handleHit()
+      setTimeout(() => {
+        setIsDealersTurn(true)
+      }, 1500);
+      setDidDouble(true)
+      setChipCount(chipCount - previousBet)
+    }
   }
 
-  const handleSplit = () => {
+  // const handleSplit = () => {
 
-  }
+  // }
 
   const dealerHitAgain = () => {
     let tenRegex = /^[JQK]|^10/
@@ -187,10 +204,11 @@ const App = () => {
         nextCardValue = 1
       }
     }
-
-    setDealersCards([...dealersCards, nextCard])
-    setRandomizedDecks(currentDeck)
-    setDealerCount(dealerCount + parseInt(nextCardValue))
+    setTimeout(() => {
+      setDealersCards([...dealersCards, nextCard])
+      setRandomizedDecks(currentDeck)
+      setDealerCount(dealerCount + parseInt(nextCardValue))
+    }, 500);
   }
 
   useEffect(() => {
@@ -201,15 +219,15 @@ const App = () => {
     handScore("dealer", dealersCards)
   }, [dealersCards])
 
-// Check for blackjack in the beginning
-useEffect(() => {
-  if(playersCards.length === 2 && 
-    playerCount === 21 && 
-    dealerCount !== 21) {
-    setIsBlackJack(true)
-    setWinner("player")
-    setIsHandComplete("true")
-    setIsDealersTurn("true")
+  // Check for blackjack in the beginning
+  useEffect(() => {
+    if(playersCards.length === 2 && 
+      playerCount === 21 && 
+      dealerCount !== 21) {
+      setIsBlackJack(true)
+      setWinner("player")
+      setIsHandComplete("true")
+      setIsDealersTurn("true")
   }
 
   if(dealersCards.length === 2 && 
@@ -243,8 +261,10 @@ useEffect(() => {
 
 //Dealer's turn
 useEffect(() => {
-  if(isDealersTurn && dealerCount < 17) {
-    dealerHitAgain()
+  if(isDealersTurn && dealerCount < 17 && !isPlayerBusted && winner !== "player") {
+    setTimeout(() => {
+      dealerHitAgain()
+    }, 500);
   }
   if(isDealersTurn && dealerCount >= 17 && dealerCount <= 21 && !isPlayerBusted) {
     if(dealerCount > playerCount) {
@@ -285,7 +305,9 @@ useEffect(() => {
   }
 
   if(dealerCount < 17 && isDealersTurn && !isPlayerBusted) {
-    dealerHitAgain()
+    setTimeout(() => {
+      dealerHitAgain()
+    }, 500);
   }
 }, [dealerCount])
 
@@ -295,16 +317,21 @@ useEffect(() => {
     setBetAmount(0)
   }
   if(winner === "player" && !isBlackjack) {
-    setChipCount(chipCount + (previousBet * 2))
-    // setBetAmount(0)
+    if(didDouble) {
+      setChipCount(chipCount + previousBet * 4)
+    } else {
+      setChipCount(chipCount + (previousBet * 2))
+    }
   }
   if(winner === "player" && isBlackjack) {
     setChipCount(chipCount + (previousBet * 2.5))
-    // setBetAmount(0)
   }
   if(winner === "push") {
-    setChipCount(chipCount + previousBet)
-    // setBetAmount(0)
+    if(didDouble) {
+      setChipCount(chipCount + previousBet * 2)
+    } else {
+      setChipCount(chipCount + previousBet)
+    }
   }
   if(winner === "push" || winner === "dealer" || winner === "player") {
     // setPreviousBet(lockedBet)
@@ -338,9 +365,6 @@ useEffect(() => {
           <button onClick={resetBets}>Reset</button>
         </p>
       </header>
-      <button onClick={startHand}>
-        Start Hand
-      </button>
       <Game randomizedDecks={randomizedDecks}
         playersCards={playersCards}
         dealersCards={dealersCards}
@@ -355,27 +379,65 @@ useEffect(() => {
         handleHit={handleHit}
         handleStay={handleStay}
         handleDouble={handleDouble}
-        handleSplit={handleSplit}
+        // handleSplit={handleSplit}
         lockedBet={lockedBet}
         handleLockedBet={handleLockedBet}
         isHandComplete={isHandComplete}
         isDealersTurn={isDealersTurn}
+        didDouble={didDouble}
+        startHand={startHand}
+        handleBet={handleBet}
       />
-      {
-        winner ? 
-          <div>
-            <button onClick={keepSameBet}>Same Bet</button>
+        <div className="game-result-div">
+          { winner ? <>
             <h1>
-            {winner === "player" ? 
-              `Player profited ${isBlackjack ? previousBet * 1.5 : previousBet}` : 
+            {winner === "player" && isBlackjack ? 
+              `Blackjack! Player wins ${previousBet + (previousBet * 1.5)}` : 
+              winner === "player" && didDouble ?
+              `Player doubles and wins ${previousBet * 4}` :
+              winner === "player" && isDealerBusted ?
+              `Dealer busted! Player wins ${previousBet * 2}` :
+              winner === "dealer" && didDouble? 
+              `Player doubled and lost ${previousBet * 2}` : 
+              winner === "dealer" && isBlackjack ? 
+              `Dealer Blackjack. Player lost ${previousBet}` : 
+              winner === "dealer" && isPlayerBusted && didDouble ? 
+              `Player busted on double. Lost ${previousBet * 2}` : 
+              winner === "dealer" && isPlayerBusted ? 
+              `Player busted. Lost ${previousBet}` : 
               winner === "dealer" ? 
-              `Player lost ${previousBet}` : 
+              `Player lost ${previousBet}` :
+              winner === "player" ?
+              `Player wins ${previousBet * 2}` : 
               winner === "push" ? 
               `Pushed back ${previousBet}` : null
             }
             </h1>
-          </div> : <></>
-      }
+          </> : null
+          }
+          <section className="betting-options">
+                {isHandComplete ? <>
+                    <button onClick={handleLockedBet}>
+                        Place Bet
+                    </button>
+                    {chipCount >= previousBet ? <button onClick={keepSameBet}>Same Bet</button> : null}
+                    {chipCount >= 5 ? <button onClick={() => handleBet(5)} className="bet-button">5</button> : null}
+                    {chipCount >= 25? <button onClick={() => handleBet(25)} className="bet-button">25</button> : null}
+                    {chipCount >= 100 ? <button onClick={() => handleBet(100)} className="bet-button">100</button> : null}
+                    {chipCount >= 500 ? <button onClick={() => handleBet(500)} className="bet-button">500</button> : null}
+                    {chipCount >= 1000 ? <button onClick={() => handleBet(1000)} className="bet-button">1000</button> : null}
+                    {chipCount >= 10000 ? <button onClick={() => handleBet(10000)} className="bet-button">10000</button> : null}
+                    {chipCount >= 50000 ? <button onClick={() => handleBet(50000)} className="bet-button">50000</button> : null}
+                    {chipCount >= 100000 ? <button onClick={() => handleBet(100000)} className="bet-button">100000</button> : null}
+                    {chipCount >= 500000 ? <button onClick={() => handleBet(500000)} className="bet-button">500000</button> : null}
+                    {chipCount >= 1000000 ? <button onClick={() => handleBet(1000000)} className="bet-button">1000000</button> : null}
+                </> : <></>}
+            </section>
+            {<button onClick={startHand}>
+                Start Hand
+            </button>}
+            {lockedBet > 0 && isHandComplete ? <h1>Placed {lockedBet}</h1> : <></>}
+        </div>
     </div>
   );
 }

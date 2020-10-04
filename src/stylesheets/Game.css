@@ -15,12 +15,25 @@
 }
 
 .card-img {
-    /* max-height: 200px; */
     max-height: 20vh;
     width: auto;
+}
+
+.sideways-double-card {
+    max-height: 20vh;
+    width: auto;
+    transform: rotate(90deg);
 }
 
 h1 {
     color: aliceblue;
     text-align: center;
 }
+
+/* .card-img-animation {
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation: flipInY;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+} */

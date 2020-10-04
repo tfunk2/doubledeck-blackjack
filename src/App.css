@@ -17,3 +17,17 @@ body {
 p {
     color: aliceblue;
 }
+
+.game-result-div {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.betting-options {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}

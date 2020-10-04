@@ -57,13 +57,6 @@ import KingOfS from '../images/KS.png'
 
 export default function Game(props) {
 
-    const handleBet = (bet) => {
-        if(props.betAmount + bet <= props.chipCount && props.isHandComplete) {
-            props.setBetAmount(props.betAmount + bet)
-            // props.setChipCount(props.chipCount - bet)
-        }
-    }
-
     const whichImages = (who, cards) => {
         return cards.map(card => {
             let findImage;
@@ -226,9 +219,9 @@ export default function Game(props) {
                     break;
             }
             if(who === "dealer" && parseInt(cards.indexOf(card)) === 1) {
-                return <img className={"card-img"} alt={card} src={props.isDealersTurn ? findImage : CardBack}></img>
+                return <img className={props.isDealersTurn ? "card-img-animation card-img" : "card-img"} alt={card} src={props.isDealersTurn ? findImage : CardBack}></img>
             }
-            return <img className="card-img" alt={card} src={findImage}></img>
+            return <img className={props.didDouble && cards[2] === card && who === "player" ? "sideways-double-card" : "card-img"} alt={card} src={findImage}></img>
         })
     }
 
@@ -242,28 +235,14 @@ export default function Game(props) {
                 {whichImages("player", props.playersCards)}
                 <h1>{props.playerCount > 0 ? props.playerCount : null}</h1>
             </div>
-            <section className="gameplay-options">
-                <button onClick={props.handleHit}>Hit</button>
-                <button onClick={props.handleStay}>Stay</button>
-                <button onClick={props.handleDouble}>Double</button>
-                <button onClick={props.handleSplit}>Split</button>
-            </section>
-            <section className="betting-options">
-                <button onClick={props.handleLockedBet}>
-                    Place Bet
-                </button>
-                {props.chipCount >= 5 ? <button onClick={() => handleBet(5)} className="not-enough">5</button> : null}
-                {props.chipCount >= 25? <button onClick={() => handleBet(25)} className="not-enough">25</button> : null}
-                {props.chipCount >= 100 ? <button onClick={() => handleBet(100)} className="not-enough">100</button> : null}
-                {props.chipCount >= 500 ? <button onClick={() => handleBet(500)} className="not-enough">500</button> : null}
-                {props.chipCount >= 1000 ? <button onClick={() => handleBet(1000)} className="not-enough">1000</button> : null}
-                {props.chipCount >= 10000 ? <button onClick={() => handleBet(10000)} className="not-enough">10000</button> : null}
-                {props.chipCount >= 50000 ? <button onClick={() => handleBet(50000)} className="not-enough">50000</button> : null}
-                {props.chipCount >= 100000 ? <button onClick={() => handleBet(100000)} className="not-enough">100000</button> : null}
-                {props.chipCount >= 500000 ? <button onClick={() => handleBet(500000)} className="not-enough">500000</button> : null}
-                {props.chipCount >= 1000000 ? <button onClick={() => handleBet(1000000)} className="bet-button">1000000</button> : null}
-            </section>
-            {props.lockedBet > 0 && props.isHandComplete ? <h1>{props.lockedBet} wagered</h1> : <></>}
+            { props.isHandComplete ? <></> :
+                <section className="gameplay-options">
+                    <button onClick={props.handleHit}>Hit</button>
+                    <button onClick={props.handleStay}>Stay</button>
+                    <button onClick={props.handleDouble}>Double</button>
+                    {/* <button onClick={props.handleSplit}>Split</button> */}
+                </section>
+            }
         </div>
     )
 }
