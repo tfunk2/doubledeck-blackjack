@@ -8,10 +8,11 @@
     height: 70vh;
     border-radius: 200px;
     border: rgb(27, 27, 27) 10px solid;
+    margin-top: 10px;
 }
 
 .dealers-cards-div {
-    margin: 0px 0px 50px 0px;
+    margin: -16px 0px -10px 0px;
 }
 
 .card-img {
@@ -37,3 +38,50 @@ h1 {
     animation-iteration-count: infinite;
     animation-timing-function: ease;
 } */
+
+.locked-bet-img {
+    height: 10vh;
+    cursor: pointer;
+    border-radius: 180px;
+}
+
+.locked-bet-img:hover {
+    background-color: rgb(94, 248, 23);
+}
+
+.empty-chip-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.locked-bet-amount {
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(248, 250, 248, 0.849);
+    padding: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.result-message {
+}
+
+.count {
+    margin: 0px 0px 0px 0px;
+    height: 47px;
+    font-size: 36px;
+}
+
+.chip-or-message {
+    height: 12vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameplay-options {
+    /* margin-top: 10px; */
+}

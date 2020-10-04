@@ -2,6 +2,7 @@ body {
     background-image: url('./images/leather-texture.jpg');
     /* background-size: cover; */
     overflow: hidden;
+    font-family: 'Secular One', sans-serif;
 }
 
 .app {
@@ -10,24 +11,145 @@ body {
     align-items: center;
 }
 
-.app-header {
-    text-align: center;
+.title {
+    font-size: 48px;
+    margin: 0px;
 }
 
-p {
+.app-header {
+    margin-top: 15px;
+    width: 100%;
+    /* padding-right: 10vw;
+    padding-left: 10vw; */
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+p, .pending-bet-div {
     color: aliceblue;
+}
+
+.pending-bet-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    background-color: rgba(255, 255, 255, 0.205);
+    padding-left: 10px;
+    border-radius: 6px;
 }
 
 .game-result-div {
     height: 10vh;
-    width: 100%;
+    width: 90%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    padding-top: 25px;
     /* align-items: center; */
 }
 
 .betting-options {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     /* align-items: center; */
+    width: 90%;
+}
+
+.betting-option {
+    border-radius: 4px;
+    margin-left: 5px;
+    height: 4vh;
+    border: none;
+    font-size: 14px;
+    width: 5.3vw;
+}
+
+.inner-betting-options {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bet-button {
+    height: 100%;
+    border-radius: 60px;
+    /* margin: 0px 30px; */
+}
+
+.bet-button:hover {
+    background-color: rgb(94, 248, 23);
+    border-radius: 60px;
+    /* border: 2px solid gold; */
+    cursor: pointer;
+}
+
+.bet-button:active {
+    background-color: rgba(94, 248, 23, 0.5);
+    border-radius: 60px;
+    /* border: 4px solid rgb(124, 199, 11); */
+    cursor: pointer;
+}
+
+.betting-option:focus, .reset-button:focus {
+    outline:none;
+}
+
+.betting-option:active {
+    border-color: transparent !important;
+    outline:none;
+}
+
+.reset-button {
+    margin-right: 10px;
+    height: 4vh;
+    border-radius: 4px;
+}
+
+.pending-bet {
+    font-size: 36px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chip-count {
+    font-size: 36px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.205);
+    padding-left: 10px;
+    border-radius: 6px;
+}
+
+.chip-number {
+    font-size: 48px;
+    margin: 0px;
+    margin-left: 5px;
+    margin-right: 15px;
+    width: 20vh;
+    text-align: left;
+}
+
+#ready-to-start {
+    background-color: rgba(7, 201, 7, 0.932);
+    border: none;
+    cursor: pointer;
+}
+
+#not-ready {
+    color: rgb(180, 180, 180);
+}
+
+#attention-red {
+    color: rgba(231, 23, 23, 0.932);
+}
+
+#normal-text {
+
 }
