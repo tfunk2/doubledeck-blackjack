@@ -85,3 +85,45 @@ h1 {
 .gameplay-options {
     /* margin-top: 10px; */
 }
+
+@media only screen and (min-width: 300px) and (max-width: 767px) {
+    .game-div {
+        /* display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url('../images/green-felt.jpg');
+        width: 90vw; */
+        height: 50vh;
+        border-radius: 40px;
+        /* border: rgb(27, 27, 27) 10px solid;
+        margin-top: 10px; */
+    }
+
+    .card-img {
+        max-height: 11vh;
+        width: auto;
+    }
+
+    .count {
+        margin: 0px 0px 0px 0px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .result-message {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+
+}
+
+@media only screen and (min-width: 425px) and (max-width: 767px) {
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1440px) {
+    
+}
