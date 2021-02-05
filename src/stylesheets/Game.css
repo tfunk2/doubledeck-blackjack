@@ -114,10 +114,40 @@ h1 {
     .result-message {
         font-size: 18px;
     }
+
+    .sideways-double-card {
+        max-height: 11vh;
+    }
 }
 
 @media only screen and (min-width: 375px) and (max-width: 767px) {
+    .game-div {
 
+    }
+
+    .card-img {
+        max-height: 14vh;
+    }
+
+    .count {
+        height: 28px;
+        font-size: 24px;
+    }
+
+    .result-message {
+        font-size: 18px;
+    }
+
+    .chip-or-message {
+        height: 12vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sideways-double-card {
+        max-height: 14vh;
+    }
 }
 
 @media only screen and (min-width: 425px) and (max-width: 767px) {
