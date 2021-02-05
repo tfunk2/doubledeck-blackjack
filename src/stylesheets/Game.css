@@ -139,12 +139,16 @@ h1 {
     }
 
     .chip-or-message {
-        height: 12vh;
+        height: 8vh;
         margin: 5px;
     }
 
     .sideways-double-card {
         max-height: 14vh;
+    }
+
+    .result-message {
+        margin: 0px;
     }
 }
 
