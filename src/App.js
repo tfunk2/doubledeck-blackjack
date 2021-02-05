@@ -378,7 +378,7 @@ useEffect(() => {
         </div>
         <p className="chip-count">
           Chip Count: <div className="chip-number" id={chipCount === 0 ? "attention-red" : "normal-text"}>{chipCount}</div>
-          {isHandComplete && chipCount === 0 ? <button className="betting-option" id={chipCount < 5 ? "ready-to-start" : "not-ready"} onClick={restartFresh}>Restart</button> : null}
+          {isHandComplete && chipCount === 0 ? <button className="betting-option restart-button" id={chipCount < 5 ? "ready-to-start" : "not-ready"} onClick={restartFresh}>Restart</button> : null}
         </p>
       </header>
       <Game randomizedDecks={randomizedDecks}

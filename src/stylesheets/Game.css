@@ -140,9 +140,7 @@ h1 {
 
     .chip-or-message {
         height: 12vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        margin: 5px;
     }
 
     .sideways-double-card {

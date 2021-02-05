@@ -266,6 +266,7 @@ p, .pending-bet-div {
         width: 90vw;
         /* padding: 0px; */
         justify-content: flex-start;
+        position: relative;
     }
 
     .pending-bet {
@@ -304,6 +305,17 @@ p, .pending-bet-div {
         display: flex;
         flex-flow: row wrap;
         align-items: center;
+    }
+
+    .restart-button {
+        position: absolute;
+        right: 5px;
+        bottom: 4px;
+    }
+
+    .reset-button {
+        margin-right: 5px;
+        height: auto;
     }
 }
 
