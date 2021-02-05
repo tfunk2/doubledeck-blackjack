@@ -238,7 +238,74 @@ p, .pending-bet-div {
 }
 
 @media only screen and (min-width: 375px) and (max-width: 767px) {
+    .pending-bet-div {
+        justify-content: space-between;
+    }
 
+    .app-header {
+        margin-top: 5px;
+        width: 100vw;
+        flex-direction: column;
+    }
+
+    .title {
+        font-size: 18px;
+        margin: 0px;
+    }
+
+    .chip-number {
+        font-size: 18px;
+        /* margin: 0px; */
+        /* margin-left: 5px; */
+        /* margin-right: 15px; */
+        /* width: 20vh; */
+        text-align: right;
+    }
+
+    .chip-count {
+        font-size: 18px;
+        width: 90vw;
+        /* padding: 0px; */
+        justify-content: flex-start;
+    }
+
+    .pending-bet {
+        font-size: 18px;
+    }
+
+    .game-result-div {
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding-top: 5px;
+        align-items: center;
+    }
+
+    .bet-button {
+        height: 50px;
+        border-radius: 60px;
+        /* margin: 0px 30px; */
+    }
+
+    .betting-option {
+        border-radius: 4px;
+        margin-left: 5px;
+        margin-top: 5px;
+        height: 4vh;
+        border: none;
+        font-size: 14px;
+        width: fit-content;
+        height: auto;
+    }
+
+    .inner-betting-options {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+    }
 }
 
 @media only screen and (min-width: 425px) and (max-width: 767px) {

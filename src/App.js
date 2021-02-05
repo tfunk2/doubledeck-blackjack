@@ -424,12 +424,12 @@ useEffect(() => {
                     {chipCount >= 100000 ? <img src={OneHundredK} onClick={() => handleBet(100000)} className="bet-button"></img> : null}
                     {chipCount >= 500000 ? <img src={FiveHundredK} onClick={() => handleBet(500000)} className="bet-button"></img> : null}
                     {chipCount >= 1000000 ? <img src={OneMillion} onClick={() => handleBet(1000000)} className="bet-button"></img> : null}
-                    <button className="betting-option" id={betAmount > 0 ? "ready-to-start" : "not-ready"} onClick={handleLockedBet}>
-                        Place Bet
-                    </button>
                   </div> : <></>
                 }
             </section>
+            <button className="betting-option" id={betAmount > 0 ? "ready-to-start" : "not-ready"} onClick={handleLockedBet}>
+                        Place Bet
+            </button>
             {
               isHandComplete ? 
                 <button className="betting-option" id={lockedBet > 0 ? "ready-to-start" : "not-ready"} onClick={startHand}>
