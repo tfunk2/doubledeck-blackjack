@@ -55,7 +55,35 @@ import JackOfS from "../images/JS.png";
 import QueenOfS from "../images/QS.png";
 import KingOfS from "../images/KS.png";
 
-export default function Game(props) {
+export default function Game({
+  randomizedDecks,
+  playersCards,
+  dealersCards,
+  chipCount,
+  setChipCount,
+  betAmount,
+  setBetAmount,
+  playerCount,
+  setPlayerCount,
+  dealerCount,
+  setDealerCount,
+  handleHit,
+  handleStay,
+  handleDouble,
+  lockedBet,
+  handleLockedBet,
+  isHandComplete,
+  isDealersTurn,
+  isPlayerBusted,
+  isDealerBusted,
+  didDouble,
+  startHand,
+  handleBet,
+  previousBet,
+  winner,
+  isBlackjack,
+  clearLockedBet,
+}) {
   const whichImages = (who, cards) => {
     return cards.map((card) => {
       let findImage;
@@ -222,14 +250,14 @@ export default function Game(props) {
           <img
             className="card-img"
             alt={card}
-            src={props.isDealersTurn ? findImage : CardBack}
+            src={isDealersTurn ? findImage : CardBack}
           ></img>
         );
       }
       return (
         <img
           className={
-            props.didDouble && cards.indexOf(card) === 2 && who === "player"
+            didDouble && cards.indexOf(card) === 2 && who === "player"
               ? "sideways-double-card"
               : "card-img"
           }
@@ -244,100 +272,100 @@ export default function Game(props) {
     <div className="game-div">
       <div className="dealers-cards-div">
         <h1 className="count">
-          {props.isDealersTurn ? props.dealerCount : null}
+          {isDealersTurn ? dealerCount : null}
         </h1>
-        {whichImages("dealer", props.dealersCards)}
+        {whichImages("dealer", dealersCards)}
       </div>
       <div className="chip-or-message">
-        {props.lockedBet > 0 || !props.isHandComplete ? (
+        {lockedBet > 0 || !isHandComplete ? (
           <div className="empty-chip-container">
             <div className="locked-bet-amount">
-              {props.isHandComplete ? props.lockedBet : props.previousBet}
+              {isHandComplete ? lockedBet : previousBet}
             </div>
             <img
               className="locked-bet-img"
-              onClick={props.clearLockedBet}
+              onClick={clearLockedBet}
               src={BlankChip}
             ></img>
           </div>
         ) : null}
         <h1 className="result-message">
-          {props.winner === "player" && props.isBlackjack
+          {winner === "player" && isBlackjack
             ? `Blackjack! Player wins ${
-                props.previousBet + props.previousBet * 1.5
+                previousBet + previousBet * 1.5
               }`
-            : props.winner === "player" && props.didDouble
-            ? `Player doubles and wins ${props.previousBet * 4}`
-            : props.winner === "player" && props.isDealerBusted
-            ? `Dealer busted! Player wins ${props.previousBet * 2}`
-            : props.winner === "dealer" && props.didDouble
-            ? `Player doubled and lost ${props.previousBet * 2}`
-            : props.winner === "dealer" && props.isBlackjack
-            ? `Dealer Blackjack. Player lost ${props.previousBet}`
-            : props.winner === "dealer" &&
-              props.isPlayerBusted &&
-              props.didDouble
-            ? `Player busted on double. Lost ${props.previousBet * 2}`
-            : props.winner === "dealer" && props.isPlayerBusted
-            ? `Player busted. Lost ${props.previousBet}`
-            : props.winner === "dealer"
-            ? `Player lost ${props.previousBet}`
-            : props.winner === "player"
-            ? `Player wins ${props.previousBet * 2}`
-            : props.winner === "push" && props.didDouble
-            ? `Pushed back ${props.previousBet * 2}`
-            : props.winner === "push"
-            ? `Pushed back ${props.previousBet}`
+            : winner === "player" && didDouble
+            ? `Player doubles and wins ${previousBet * 4}`
+            : winner === "player" && isDealerBusted
+            ? `Dealer busted! Player wins ${previousBet * 2}`
+            : winner === "dealer" && didDouble
+            ? `Player doubled and lost ${previousBet * 2}`
+            : winner === "dealer" && isBlackjack
+            ? `Dealer Blackjack. Player lost ${previousBet}`
+            : winner === "dealer" &&
+              isPlayerBusted &&
+              didDouble
+            ? `Player busted on double. Lost ${previousBet * 2}`
+            : winner === "dealer" && isPlayerBusted
+            ? `Player busted. Lost ${previousBet}`
+            : winner === "dealer"
+            ? `Player lost ${previousBet}`
+            : winner === "player"
+            ? `Player wins ${previousBet * 2}`
+            : winner === "push" && didDouble
+            ? `Pushed back ${previousBet * 2}`
+            : winner === "push"
+            ? `Pushed back ${previousBet}`
             : null}
         </h1>
       </div>
       <div className="players-cards-div">
-        {whichImages("player", props.playersCards)}
+        {whichImages("player", playersCards)}
         <h1 className="count">
-          {props.playerCount > 0 ? props.playerCount : null}
+          {playerCount > 0 ? playerCount : null}
         </h1>
       </div>
       <section className="gameplay-options">
-        {!props.isHandComplete ? (
+        {!isHandComplete ? (
           <>
             <button
               className="betting-option"
               id={
-                !props.isDealersTurn && props.playerCount < 21
+                !isDealersTurn && playerCount < 21
                   ? "ready-to-start"
                   : "not-ready"
               }
-              onClick={props.handleHit}
+              onClick={handleHit}
             >
               Hit
             </button>
             <button
               className="betting-option"
               id={
-                !props.isDealersTurn &&
-                props.playerCount <= 21 &&
-                !props.didDouble
+                !isDealersTurn &&
+                playerCount <= 21 &&
+                !didDouble
                   ? "ready-to-start"
                   : "not-ready"
               }
-              onClick={props.handleStay}
+              onClick={handleStay}
             >
               Stay
             </button>
             <button
               className="betting-option"
               id={
-                !props.isDealersTurn &&
-                props.playersCards.length === 2 &&
-                props.chipCount >= props.previousBet
+                !isDealersTurn &&
+                playersCards.length === 2 &&
+                chipCount >= previousBet
                   ? "ready-to-start"
                   : "not-ready"
               }
-              onClick={props.handleDouble}
+              onClick={handleDouble}
             >
               Double
             </button>
-            {/* <button onClick={props.handleSplit}>Split</button> */}
+            {/* <button onClick={handleSplit}>Split</button> */}
           </>
         ) : (
           <></>
