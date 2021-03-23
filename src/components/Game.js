@@ -88,160 +88,160 @@ export default function Game({
     return cards.map((card) => {
       let findImage;
       switch (card) {
-        case "A of Hearts":
+        case "AH":
           findImage = AceOfH;
           break;
-        case "2 of Hearts":
+        case "2H":
           findImage = TwoOfH;
           break;
-        case "3 of Hearts":
+        case "3H":
           findImage = ThreeOfH;
           break;
-        case "4 of Hearts":
+        case "4H":
           findImage = FourOfH;
           break;
-        case "5 of Hearts":
+        case "5H":
           findImage = FiveOfH;
           break;
-        case "6 of Hearts":
+        case "6H":
           findImage = SixOfH;
           break;
-        case "7 of Hearts":
+        case "7H":
           findImage = SevenOfH;
           break;
-        case "8 of Hearts":
+        case "8H":
           findImage = EightOfH;
           break;
-        case "9 of Hearts":
+        case "9H":
           findImage = NineOfH;
           break;
-        case "10 of Hearts":
+        case "10H":
           findImage = TenOfH;
           break;
-        case "J of Hearts":
+        case "JH":
           findImage = JackOfH;
           break;
-        case "Q of Hearts":
+        case "QH":
           findImage = QueenOfH;
           break;
-        case "K of Hearts":
+        case "KH":
           findImage = KingOfH;
           break;
-        case "A of Clubs":
+        case "AC":
           findImage = AceOfC;
           break;
-        case "2 of Clubs":
+        case "2C":
           findImage = TwoOfC;
           break;
-        case "3 of Clubs":
+        case "3C":
           findImage = ThreeOfC;
           break;
-        case "4 of Clubs":
+        case "4C":
           findImage = FourOfC;
           break;
-        case "5 of Clubs":
+        case "5C":
           findImage = FiveOfC;
           break;
-        case "6 of Clubs":
+        case "6C":
           findImage = SixOfC;
           break;
-        case "7 of Clubs":
+        case "7C":
           findImage = SevenOfC;
           break;
-        case "8 of Clubs":
+        case "8C":
           findImage = EightOfC;
           break;
-        case "9 of Clubs":
+        case "9C":
           findImage = NineOfC;
           break;
-        case "10 of Clubs":
+        case "10C":
           findImage = TenOfC;
           break;
-        case "J of Clubs":
+        case "JC":
           findImage = JackOfC;
           break;
-        case "Q of Clubs":
+        case "QC":
           findImage = QueenOfC;
           break;
-        case "K of Clubs":
+        case "KC":
           findImage = KingOfC;
           break;
-        case "A of Diamonds":
+        case "AD":
           findImage = AceOfD;
           break;
-        case "2 of Diamonds":
+        case "2D":
           findImage = TwoOfD;
           break;
-        case "3 of Diamonds":
+        case "3D":
           findImage = ThreeOfD;
           break;
-        case "4 of Diamonds":
+        case "4D":
           findImage = FourOfD;
           break;
-        case "5 of Diamonds":
+        case "5D":
           findImage = FiveOfD;
           break;
-        case "6 of Diamonds":
+        case "6D":
           findImage = SixOfD;
           break;
-        case "7 of Diamonds":
+        case "7D":
           findImage = SevenOfD;
           break;
-        case "8 of Diamonds":
+        case "8D":
           findImage = EightOfD;
           break;
-        case "9 of Diamonds":
+        case "9D":
           findImage = NineOfD;
           break;
-        case "10 of Diamonds":
+        case "10D":
           findImage = TenOfD;
           break;
-        case "J of Diamonds":
+        case "JD":
           findImage = JackOfD;
           break;
-        case "Q of Diamonds":
+        case "QD":
           findImage = QueenOfD;
           break;
-        case "K of Diamonds":
+        case "KD":
           findImage = KingOfD;
           break;
-        case "A of Spades":
+        case "AS":
           findImage = AceOfS;
           break;
-        case "2 of Spades":
+        case "2S":
           findImage = TwoOfS;
           break;
-        case "3 of Spades":
+        case "3S":
           findImage = ThreeOfS;
           break;
-        case "4 of Spades":
+        case "4S":
           findImage = FourOfS;
           break;
-        case "5 of Spades":
+        case "5S":
           findImage = FiveOfS;
           break;
-        case "6 of Spades":
+        case "6S":
           findImage = SixOfS;
           break;
-        case "7 of Spades":
+        case "7S":
           findImage = SevenOfS;
           break;
-        case "8 of Spades":
+        case "8S":
           findImage = EightOfS;
           break;
-        case "9 of Spades":
+        case "9S":
           findImage = NineOfS;
           break;
-        case "10 of Spades":
+        case "10S":
           findImage = TenOfS;
           break;
-        case "J of Spades":
+        case "JS":
           findImage = JackOfS;
           break;
-        case "Q of Spades":
+        case "QS":
           findImage = QueenOfS;
           break;
-        case "K of Spades":
+        case "KS":
           findImage = KingOfS;
           break;
       }
